@@ -5,7 +5,7 @@ from io import BytesIO
 from PIL import Image
 
 def create_screenshot():
-    print("Taking screenshot...")
+    # print("Taking screenshot...")
     img = pyautogui.screenshot()
 
     img = img.resize((1280,720), Image.ANTIALIAS)
