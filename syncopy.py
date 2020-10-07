@@ -41,18 +41,9 @@ print("\n----------------------------------------------------\n")
 
 print(bcolors.BOLD+bcolors.OKBLUE+"Please wait while we generate your PC-ID and QR Code..\n"+bcolors.ENDC)
 
-service = {
-  "type": "service_account",
-  "project_id": "syncopy-project",
-  "private_key_id": "f1c567139e1084c706624711d882489f87d09154",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCYi1b/SYfNAuwy\npPoxjJv1SJVAcjl6DThw8wtZsYHXQ573GBrhs6hvRHPCqNUz0pxUt5y1XxFnhQz3\n8XAFCcN+NzU4QPqZ1sIZ2KZ4eoIAr5ap5xVWEYPiVOUMZF8pyvSNME+Od5cTk6FW\nmDSXtxLIZ8XpCz2akcRWN3Fomh7JVN+iIsoq+smfw+C7+Lqx7b6gCTiKfMFXU1ZQ\nStKbyDauw8SQqq4xbJgOkz94XP7DOybSSQxNq4+KU5yOsw1qgPl9cgwRduXIGHAX\naPXL2WUa4OZ07J8kfPnLSFMFCWhRG8i0/8bwz9OwN+oLWBPvarmXLMPYNlamdZdD\nZAEuX1TbAgMBAAECggEAOzpu7vQ33Cv0Vb2kvzRfIZ+rA7jWBEO51HEpyQuY5GIH\nCN29IkFFdt5XLA+tqE9wD5yzJeDhuxX38RU3b11ZIFqDOXJRWwX9m1d5W3IFpAqJ\nLzLgH+jxEiHwRR17rZh115QYb7KTYDCEBkFWukmE63cPaurIYomSd/9S81BT/8tw\n7Lxx5WjWkjof+NeaCcJ11uG+KsY5cu4GEnIQAj5ULWDgNT9yLtYgjFTpPolOmovL\nyOnkDXoIR7Aeqqb04lb6NMC9CrONsonvsJSv2YH/mfLLnu4YH136izfpjYxz7Yii\n8CLSGzMPkD5eD/LqM5I3WgoXaN5VMhwBLvHEhNr94QKBgQDNsgX4PVo37P0p8N9R\ncSZLs5KSn3y0uskHPtMO3Hk+P3qlMsV3dBRc7VkupANAHyjo4lc4TlsV56UWhW1E\n6oy8bwBxav34VQsGVI2UrpJVgRma8fVXW9H44JjJJsI/sox13bzct+w2PYhkBA/w\nwF70FLC5sDYvcL+FQoK+UiafKQKBgQC92a8X+JX3LZuxeL+Fh49V2vuEVKwFhGui\nYn5wtGZEMYDh0LWiH259tKi8WMgeBCAFgsBCoREJM7CnIKgzKyUwACX4nwWHg+ri\nFGyCEheA9pKfVq6xdwkw6dssXwhOST2wEvFcpn8u6PUzG0CM3+0EbPXrGY5ohKyZ\ntdbIlBKIYwKBgQC+MAB9Cp1EYIekI+cYMnqqPBsmHvj7UklVva0AbLJd7+vCmzMh\nw96gHYT8LwIiY607xyvGEA0AL/Lg4/WoZwZBpJDQTZEN7/QFomBWPSNok7nNHjMu\n1uNKLsCWHJQ2uSxOPvvFSPnLHRHjCC6E+BnTrN3KkzdGngU3fcvNlb/IIQKBgFio\naKEsIHRe4x9cwSvNY313lw90LyUgctdRYbSmOj/MUmCiA8BjJ0ki7c2PNFz4FjAc\noEY9S2RdtDhIAuRqWKJy30ickot3amALo6SWaE18WHp6k3gim7Mw8n5lHs7YWyt3\nnSlkQ26XsbIdHubqx5fSfoE83QkoNCZQCa5/n6v7AoGAYQNkSQwJ8Xc6t3fWRspX\nPzd20SRBUnZJKHdsAg+UcmIFt4LDR7snuZQrJZAOKMcovSEq0ve5BCH1Udj7/KQz\nqkqaxIbBMoRH1L6Wg6Q43FNaJAs54KJUgmQi5Psj24ETXeY/s0pHDk9IhWIz7tY0\nESVhzTr7JAz7px7e5o3yeQA=\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-t8rke@syncopy-project.iam.gserviceaccount.com",
-  "client_id": "117985439091379339702",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-t8rke%40syncopy-project.iam.gserviceaccount.com"
-}
+# service -> /Documents/service.txt
+
+
 
 # Initializing Pyrebase
 config = {
@@ -101,7 +92,7 @@ def stream_handler(message):
             
             print(bcolors.OKGREEN + "Connection established with {}\n".format(connection_uuid) + bcolors.ENDC)
 
-            my_stream = db.child("clip").child(connection_uuid).stream(clip_data_stream, stream_id="clip_stream")
+            my_stream = db.child("clips").child(connection_uuid).stream(clip_data_stream, stream_id="clip_stream")
             db.child("status").child(uuid).set(True)
         
         if isinstance(connection_uuid, str) and connection_uuid == "-1":
@@ -147,19 +138,21 @@ def clip_data_change_listener():
                         prevClip = newClip
 
                         time2 = int(round(time.time() * 1000))
-                        db.child("clip_web").child(connection_uuid).child("message").set({"clip": newClip, "time": time2, "history": True})
+                        db.child("clip_web").child(connection_uuid).child("message").set({"clip": newClip, "time": time2, "history": True, "fromUUID": uuid})
 
         except Exception as e:
-            print(bcolors.FAIL + ">>> Something went wrong!\n" + bcolors.ENDC)
+    
+            print(bcolors.FAIL + ">>> Oups! Check your internet connection\n" + bcolors.ENDC)
+            continue
             # e.message()               
 
 # Listen to clip data change in FIREBASE
 
 def clip_data_stream(message):
-
+    # print(message["data"])
     try:
       if message['data'] is not None:
-        data = list(message['data'].values())[0]
+        data = message["data"]
         # print("DATA : {}".format(data))
         if isinstance(data, str):
             global newClip, prevClip, uuid, connection_uuid
@@ -180,6 +173,7 @@ def clip_data_stream(message):
 
 
     except Exception as e:
+        # e.print_exc()
         print(bcolors.FAIL + ">>> Something went wrong!\n" + bcolors.ENDC)
 
 # db.child("clip_web").child(connection_uuid).child("message").set({"clip": newClip, "time": time2, "history": True})
@@ -197,8 +191,8 @@ def clip_data_change_in_firebase_listener():
             try:
                 print(bcolors.OKGREEN + ">>> Started clip data change stream...\n" + bcolors.ENDC)
 
-                my_stream = db.child("clip").child(connection_uuid).stream(clip_data_stream, stream_id="jgjhgj")
-                my_stream = db.child("clip_web").child(connection_uuid).child("mussage").child("clip").stream(clip_data_stream, stream_id="jgjhgj")
+                # my_stream = db.child("clips").child(connection_uuid).stream(clip_data_stream, stream_id="jgjhgj")
+                my_stream = db.child("clip_web").child(connection_uuid).child("message").child("clip").stream(clip_data_stream, stream_id="jgjhgj")
 
             except Exception as e:
                 my_stream.close()
