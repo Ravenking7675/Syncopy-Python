@@ -1,1 +1,1 @@
-# Syncopy-Python (Source code)
+# Syncope-Python (Source code)
